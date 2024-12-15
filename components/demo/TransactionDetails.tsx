@@ -1,8 +1,19 @@
-'use client';
+"use client";
 
 import { CheckCircle2, ArrowRight } from "lucide-react";
 
-export function TransactionDetails({ details }) {
+// Definir el tipo para los detalles de la transacción
+interface TransactionDetailsProps {
+  details: {
+    token: string;
+    amount: string;
+    gasFee: string;
+    recipient: string;
+    timestamp: string;
+  };
+}
+
+export function TransactionDetails({ details }: TransactionDetailsProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2">
@@ -18,12 +29,16 @@ export function TransactionDetails({ details }) {
 
         <div className="flex items-center justify-between p-3 rounded-lg bg-zinc-800">
           <span className="text-zinc-400">Amount Sent</span>
-          <span className="font-medium">{details.amount} {details.token}</span>
+          <span className="font-medium">
+            {details.amount} {details.token}
+          </span>
         </div>
 
         <div className="flex items-center justify-between p-3 rounded-lg bg-zinc-800">
           <span className="text-zinc-400">Gas Fee (0.5%)</span>
-          <span className="font-medium">{details.gasFee} {details.token}</span>
+          <span className="font-medium">
+            {details.gasFee} {details.token}
+          </span>
         </div>
 
         <div className="p-4 rounded-lg bg-zinc-800 space-y-2">
@@ -31,9 +46,7 @@ export function TransactionDetails({ details }) {
             <span>Recipient</span>
             <ArrowRight className="w-4 h-4" />
           </div>
-          <div className="font-mono text-sm break-all">
-            {details.recipient}
-          </div>
+          <div className="font-mono text-sm break-all">{details.recipient}</div>
         </div>
 
         <div className="text-sm text-zinc-500 text-right">

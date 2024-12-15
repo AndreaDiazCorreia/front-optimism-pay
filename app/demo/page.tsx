@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Card } from "@/components/ui/card";
 import { TransactionForm } from "@/components/demo/TransactionForm";
@@ -6,8 +6,18 @@ import { TransactionDetails } from "@/components/demo/TransactionDetails";
 import { useState } from "react";
 import { Wallet } from "lucide-react";
 
+// Importa el tipo TransactionDetails
+interface TransactionDetailsType {
+  token: string;
+  amount: string;
+  gasFee: string;
+  recipient: string;
+  timestamp: string;
+}
+
 export default function DemoPage() {
-  const [transactionDetails, setTransactionDetails] = useState(null);
+  const [transactionDetails, setTransactionDetails] =
+    useState<TransactionDetailsType | null>(null);
 
   return (
     <div className="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center p-6">

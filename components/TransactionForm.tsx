@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -15,22 +15,38 @@ import { toast } from "sonner";
 const FIXED_ADDRESS = "0x1234567890abcdef1234567890abcdef12345678";
 const TOKENS = ["USDC", "DAI", "USDT"];
 
-export function TransactionForm({ onTransactionComplete }) {
+// Definimos la estructura de los detalles de la transacción
+interface TransactionDetails {
+  token: string;
+  amount: string;
+  gasFee: string;
+  recipient: string;
+  timestamp: string;
+}
+
+// Definimos las props para el componente TransactionForm
+interface TransactionFormProps {
+  onTransactionComplete: (details: TransactionDetails) => void;
+}
+
+export function TransactionForm({
+  onTransactionComplete,
+}: TransactionFormProps) {
   const [amount, setAmount] = useState("");
   const [selectedToken, setSelectedToken] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate transaction processing
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    // Simulamos el procesamiento de la transacción
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    const gasFee = parseFloat(amount) * 0.005; // 0.5% gas fee
+    const gasFee = parseFloat(amount) * 0.005; // 0.5% de gas fee
     const finalAmount = parseFloat(amount) - gasFee;
 
-    const details = {
+    const details: TransactionDetails = {
       token: selectedToken,
       amount: finalAmount.toFixed(2),
       gasFee: gasFee.toFixed(2),
@@ -84,8 +100,8 @@ export function TransactionForm({ onTransactionComplete }) {
         </Select>
       </div>
 
-      <Button 
-        type="submit" 
+      <Button
+        type="submit"
         className="w-full bg-[#ff0420] hover:bg-[#cc0319]"
         disabled={isLoading}
       >
